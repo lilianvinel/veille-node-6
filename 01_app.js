@@ -24,6 +24,18 @@ app.get('/membres', (req, res) => {
  }) 
 })
 
+app.post('/formulaire',  (req, res) => {
+ // Preparer l'output en format JSON
+
+console.log('la route /formulaire')
+// on utilise l'objet req.body pour récupérer les données POST
+db.collection('adresse').save(req.body, (err, result) => {
+ if (err) return console.log(err)
+ console.log('sauvegarder dans la BD')
+ })
+
+}) 
+
 let db; // variable qui contiendra le lien sur la BD
 
 MongoClient.connect('mongodb://127.0.0.1:27017', (err, database) => {
