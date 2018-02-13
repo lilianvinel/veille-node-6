@@ -19,7 +19,6 @@ app.get('/membres', (req, res) => {
                 .find().toArray(function(err, resultat){
  if (err) return console.log(err)
  // transfert du contenu vers la vue gabarit.ejs (renders)
- // affiche le contenu de la BD
  res.render('gabarit.ejs', {adresses: resultat});
  }) 
 })
