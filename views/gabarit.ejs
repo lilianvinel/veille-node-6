@@ -7,12 +7,23 @@
 </head>
 <body>
  <table class="tableau">
- <% adresses.forEach(elm => {%>
+ <% let noLigne = 0 %>
+ <% for(element of adresses) {%>
+ <% if (noLigne == 0) {%>
  <tr>
- <td><%= elm.nom %></td>
- <td><%= elm.telephone %></td>
+
+ 	<% noLigne++
+ 	for(p in element) { %>
+ 		<th><%= p %></th>
+ 	<% } %>	
  </tr>
- <% }) %>
+ <% } %>
+ <tr>
+ 	<% for(p in element) {%>
+ 		<td><%= element[p] %></td>
+ 	<% } %>	
+ </tr>
+ <% } %>
  </table>
 </body>
 </html>
