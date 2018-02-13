@@ -3,27 +3,16 @@
 <head>
  <meta charset="UTF-8">
  <title>Mon Application</title>
- <link rel="stylesheet" type="text/css" href="html/css/styles.css">
+ <link rel="stylesheet" type="text/css" href="/html/css/styles.css">
 </head>
 <body>
  <table class="tableau">
- <% let noLigne = 0 %>
- <% for(element of adresses) {%>
- <% if (noLigne == 0) {%>
+ <% adresses.forEach(elm => {%>
  <tr>
-
- 	<% noLigne++
- 	for(p in element) { %>
- 		<th><%= p %></th>
- 	<% } %>	
+ <td><%= elm.nom %></td>
+ <td><%= elm.telephone %></td>
  </tr>
- <% } %>
- <tr>
- 	<% for(p in element) {%>
- 		<td><%= element[p] %></td>
- 	<% } %>	
- </tr>
- <% } %>
+ <% }) %>
  </table>
 </body>
 </html>
