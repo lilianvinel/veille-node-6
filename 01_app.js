@@ -5,6 +5,20 @@ const bodyParser= require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
+app.set('view engine', 'ejs'); // générateur de template
+
+app.get('/membres', (req, res) => {
+ console.log('la route route get /membres = ' + req.url)
+ 
+ var cursor = db.collection('adresse')
+                .find().toArray(function(err, resultat){
+ if (err) return console.log(err)
+ // transfert du contenu vers la vue gabarit.ejs (renders)
+ // affiche le contenu de la BD
+ res.render('gabarit.ejs', {adresses: resultat});
+ console.log('util = ' + util.inspect(resultat))
+ }) 
+})
 
 let db; // variable qui contiendra le lien sur la BD
 
