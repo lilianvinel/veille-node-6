@@ -47,6 +47,17 @@ app.get('/trier/:id/asc', (req, res) => {
 })	
 
 
+
+app.get('/detruire/:id', (req, res) => {
+ var id = req.params.id
+ console.log(id)
+ db.collection('adresse').findOneAndDelete({"_id": ObjectID(id)}, (err, resultat) => {
+
+if (err) return console.log(err)
+ res.redirect('/adresses')  // redirige vers la route qui affiche la collection
+ })
+})	
+
 let db; // variable qui contiendra le lien sur la BD
 
 MongoClient.connect('mongodb://127.0.0.1:27017', (err, database) => {
