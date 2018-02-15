@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs'); // générateur de template
 
 app.get('/accueil', function (req, res) {
- res.render('accueil.ejs');
+ res.render('formulaire.ejs');
 })
 
 app.get('/adresses', (req, res) => {
@@ -18,7 +18,7 @@ app.get('/adresses', (req, res) => {
                 .find().toArray(function(err, resultat){
  if (err) return console.log(err)
  // transfert du contenu vers la vue adresses.ejs (renders)
- res.render('adresses.ejs', {adresses: resultat});
+ res.render('membres.ejs', {adresses: resultat});
  }) 
 })
 
@@ -30,9 +30,19 @@ console.log('la route /accueil')
 db.collection('adresse').save(req.body, (err, result) => {
  if (err) return console.log(err)
  console.log('sauvegarder dans la BD')
- res.redirect('/membres')
+ res.redirect('/adresses')
  })
 
+})
+
+app.get('/trier/:id/asc', (req, res) => {
+
+	let cle = req.params.id
+	let ordre = (req.params.ordre == 'asc' ? 1 : -1)
+	let cursor = db.collection('adresse').find().sort(cle,ordre).toArray(function(err, resultat){
+		ordre = 
+		res.render('adresses.ejs', {adresses: resultat, ______, _________ })
+	})
 }) 
 
 let db; // variable qui contiendra le lien sur la BD
