@@ -7,6 +7,10 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs'); // générateur de template
 
+app.get('/accueil', function (req, res) {
+ res.render('accueil.ejs');
+})
+
 app.get('/adresses', (req, res) => {
  console.log('la route route get /adresses = ' + req.url)
  
@@ -18,10 +22,10 @@ app.get('/adresses', (req, res) => {
  }) 
 })
 
-app.post('/formulaire',  (req, res) => {
+app.post('/accueil',  (req, res) => {
  // Preparer l'output en format JSON
 
-console.log('la route /formulaire')
+console.log('la route /accueil')
 // on utilise l'objet req.body pour récupérer les données POST
 db.collection('adresse').save(req.body, (err, result) => {
  if (err) return console.log(err)
