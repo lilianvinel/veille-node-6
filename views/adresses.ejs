@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+ <meta charset="UTF-8">
+ <title>Mon Application</title>
+ <link rel="stylesheet" type="text/css" href="/html/css/styles.css">
+</head>
+<body>
+ <table class="tableau">
+ <% let noLigne = 0 %>
+ <% for(element of adresses) {%>
+ <% if (noLigne == 0) {%>
+ <tr>
+
+ 	<% noLigne++
+ 	for(p in element) { %>
+ 		<th><%= p %></th>
+ 	<% } %>	
+ </tr>
+ <% } %>
+ <tr>
+ 	<% for(p in element) {%>
+ 		<td><%= element[p] %></td>
+ 	<% } %>	
+ </tr>
+ <% } %>
+ </table>
+</body>
+</html>
