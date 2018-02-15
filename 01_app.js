@@ -36,14 +36,16 @@ db.collection('adresse').save(req.body, (err, result) => {
 })
 
 app.get('/trier/:id/asc', (req, res) => {
+		let cle = req.params.id
+		let ordre = (req.params.ordre == 'asc' ? 1 : -1)
 
-	let cle = req.params.id
-	let ordre = (req.params.ordre == 'asc' ? 1 : -1)
-	let cursor = db.collection('adresse').find().sort(cle,ordre).toArray(function(err, resultat){
-		ordre = 
-		res.render('adresses.ejs', {adresses: resultat, ______, _________ })
-	})
-}) 
+		let cursor = db.collection('adresse').find().sort(cle,ordre).toArray(function(err, resultat){
+			console.log(ordre);
+			res.render('membres.ejs', {adresses: resultat})
+		})
+})	
+
+
 
 let db; // variable qui contiendra le lien sur la BD
 
