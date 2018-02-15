@@ -3,6 +3,7 @@ const app = express();
 const fs = require('fs');
 const bodyParser= require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs'); // générateur de template
@@ -44,7 +45,6 @@ app.get('/trier/:id/asc', (req, res) => {
 			res.render('membres.ejs', {adresses: resultat})
 		})
 })	
-
 
 
 let db; // variable qui contiendra le lien sur la BD
