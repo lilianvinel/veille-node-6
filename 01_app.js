@@ -36,17 +36,52 @@ db.collection('adresse').save(req.body, (err, result) => {
 
 })
 
-app.get('/trier/:id/asc', (req, res) => {
-		let cle = req.params.id
-		let ordre = (req.params.ordre == 'asc' ? 1 : -1)
+app.get('/trier/:cle/:ordre', (req, res) => {
+	let cle = req.params.cle
 
-		let cursor = db.collection('adresse').find().sort(cle,ordre).toArray(function(err, resultat){
-			console.log(ordre);
-			res.render('membres.ejs', {adresses: resultat})
-		})
+	let ordre = (req.params.ordre == 'asc' ? 1 : -1)
+
+	let cursor = db.collection('adresse').find().sort(cle,ordre).toArray(function(err, resultat){
+
+		ordre = (req.params.ordre == "asc" ? "desc" : "asc")
+
+		console.log(ordre);
+
+		res.render('membres.ejs', {adresses: resultat, cle, ordre})
+	})
 })	
 
+app.post('/modifier', (req, res) => {
+console.log('req.body' + req.body)
+ if (req.body['_id'] != 0)
+ { 
+ console.log('sauvegarde') 
+ var oModif = {
+ "_id": ObjectID(req.params.id), 
+ nom: req.body.nom,
+ prenom:req.body.prenom, 
+ telephone:req.body.telephone,
+ courriel:req.body.courriel
+ }
+ var util = require("util");
+ console.log('util = ' + util.inspect(oModif));
+ }else{
 
+ console.log('insert')
+ console.log(req.body)
+ var oModif = {
+ nom: req.body.nom,
+ prenom:req.body.prenom, 
+ telephone:req.body.telephone,
+ courriel:req.body.courriel
+ }
+ db.collection('adresse').save(oModif, (err, result) => {
+ if (err) return console.log(err)
+ console.log('sauvegarder dans la BD')
+ res.redirect('/adresses')
+ })
+ }
+}) 
 
 app.get('/detruire/:id', (req, res) => {
  var id = req.params.id
