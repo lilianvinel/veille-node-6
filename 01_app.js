@@ -4,6 +4,7 @@ const fs = require('fs');
 const bodyParser= require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
+const util = require("util");
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs'); // générateur de template
@@ -52,35 +53,17 @@ app.get('/trier/:cle/:ordre', (req, res) => {
 })	
 
 app.post('/modifier', (req, res) => {
-console.log('req.body' + req.body)
- if (req.body['_id'] != 0)
- { 
- console.log('sauvegarde') 
- var oModif = {
- "_id": ObjectID(req.params.id), 
- nom: req.body.nom,
- prenom:req.body.prenom, 
- telephone:req.body.telephone,
- courriel:req.body.courriel
- }
- var util = require("util");
- console.log('util = ' + util.inspect(oModif));
- }else{
+req.body._id = ObjectID(req.body._id)
 
- console.log('insert')
- console.log(req.body)
- var oModif = {
- nom: req.body.nom,
- prenom:req.body.prenom, 
- telephone:req.body.telephone,
- courriel:req.body.courriel
- }
- db.collection('adresse').save(oModif, (err, result) => {
- if (err) return console.log(err)
- console.log('sauvegarder dans la BD')
- res.redirect('/adresses')
- })
- }
+	console.log('util = ' + util.inspect(req.body));
+
+	 db.collection('adresse').save(req.body, (err, result) => 
+	 {
+	 if (err) return console.log(err)
+
+		 console.log('sauvegarder dans la BD')
+		 res.redirect('/adresses')
+	 })
 }) 
 
 app.get('/detruire/:id', (req, res) => {
